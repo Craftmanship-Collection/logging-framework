@@ -15,3 +15,25 @@ This repository serves as a learning resource for:
 * Practicing Low-Level Design (LLD) concepts
 * Preparing for technical interviews focusing on system design
 * Comparing different implementations of the same problem
+
+## Getting Started
+
+### Prerequisites
+
+* Java JDK 11 or higher
+* Maven or Gradle (based on the implementation)
+
+### Running the Examples
+
+
+* **Clone the repository**
+
+    ```bash 
+    git clone https://github.com/Craftmanship-Collection/logging-framework/
+    cd logging-framework
+    ```
+* **Switch to a specific member's solution branch**
+    ```bash
+    git checkout <<member-branch>>
+    ```
+Follow the specific instructions in each branch's README for building and running that particular solution
