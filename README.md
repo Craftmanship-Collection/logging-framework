@@ -4,9 +4,9 @@ This repository contains implementations of a Logging Framework in Java, designe
 ## Repository Structure
 The repository is organized into three branches, each containing a different implementation of the logging framework:
 
-* ```logging/lynx```
+* ```lynx```
 * ```logging/pavan```
-* ```logging/manoj```
+* ```manoj```
 
 ## Purpose
 This repository serves as a learning resource for:
