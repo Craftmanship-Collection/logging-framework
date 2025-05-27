@@ -1,60 +1,59 @@
 package com.craftmanshipcollection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 
+import com.craftmanshipcollection.appenders.DatabaseAppender;
 import com.craftmanshipcollection.appenders.FileAppender;
-import com.craftmanshipcollection.appenders.LoggerAppender;
-import com.craftmanshipcollection.logger.LogLevel;
-import com.craftmanshipcollection.logger.Logger;
-import com.craftmanshipcollection.logger.LoggerContext;
+import com.craftmanshipcollection.configuration.LoggerConfig;
+import com.craftmanshipcollection.contexts.LoggerContext;
+import com.craftmanshipcollection.daos.LogDao;
+import com.craftmanshipcollection.loggers.Logger;
+
 
 public class Main {
     public static void main(String[] args) {
 
-        ExecutorService service = Executors.newFixedThreadPool(2);
+        System.out.println("Hello world!");
 
-        List<LoggerAppender> loggerAppenders = new ArrayList<>();
-    
-        
-        String filePath = "logs/";
-        LoggerAppender fileAppender = new FileAppender(filePath, true);
-        
-        loggerAppenders.add(fileAppender);
+        LoggerConfig.setLevel("debug");
+        FileAppender fileAppender = new FileAppender(new ArrayBlockingQueue<>(5), Executors.newFixedThreadPool(2), "logs/");
 
-        LoggerContext context = LoggerContext.getLoggerContext(loggerAppenders, service);
-        Logger logger = Logger.getInstance();
+        LogDao logDao = new LogDao();
+        DatabaseAppender databaseAppender = new DatabaseAppender(new ArrayBlockingQueue<>(5), Executors.newFixedThreadPool(2), logDao);
 
-        logger.setLoggerContext(context);
-        logger.setLoggingLevel(LogLevel.DEBUG);
+        LoggerContext loggerContext = LoggerContext.getInstance();
 
-        System.out.println("Running something");
-        System.out.println("Logger Enabled");
-        System.out.println("Check " + filePath + " for logs");
+        loggerContext.addAppender(fileAppender);
+        loggerContext.addAppender(databaseAppender);
+
+        Logger logger = Logger.getInstance(loggerContext);
 
         runSomething(logger);
 
-        logger.shutDown();
-
-        
+        loggerContext.stop();
 
     }
 
     public static void runSomething(Logger logger) {
+        try {
 
-        for(int i = 0; i <= 10; i++) {
+            for(int i = 0; i <= 10; i++) {
 
-            logger.debug("value is: " + i);
+                logger.debug("value is: " + i);
 
-            if(i == 10) {
+                if(i == 10) {
 
-                logger.warn("value is: " + i);
+                    logger.warn("value is: " + i);
+
+                }
 
             }
 
+        }catch(Exception ex) {
+            System.out.println(ex.getMessage());
         }
+
 
     }
 }

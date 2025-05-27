@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/loggingframework</property>
+        <property name="hibernate.connection.username">chintu</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- <property name="hibernate.connection.provider_class">org.hibernate.hikaricp.internal.HikariCPConnectionProvider</property> -->
+
+        <!-- HikariCP settings -->
+        <!-- <property name="hibernate.hikari.minimumIdle">5</property>
+        <property name="hibernate.hikari.maximumPoolSize">10</property>
+        <property name="hibernate.hikari.idleTimeout">30000</property>
+        <property name="hibernate.hikari.poolName">HibernateHikariCP</property>
+        <property name="hibernate.hikari.maxLifetime">2000000</property>
+        <property name="hibernate.hikari.connectionTimeout">30000</property> -->
+
+        <mapping class="com.practice.models.Log"/>
+    </session-factory>
+</hibernate-configuration>
+

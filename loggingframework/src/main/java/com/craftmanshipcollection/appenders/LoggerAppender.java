@@ -1,9 +1,9 @@
 package com.craftmanshipcollection.appenders;
 
 public interface LoggerAppender {
-
-    void addTaskToAppender(String message);
-    void removeConnection();
+    
+    void appendMessage(String message) throws Exception;
+    void start();
+    void stop();
 
 }
-
