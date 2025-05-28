@@ -63,13 +63,14 @@ A simple, flexible, and extensible logging framework for Java applications with 
 * Thread Safety
   * The framework uses synchronized blocks for file writing operations and ExecutorService for asynchronous processing, making it safe for multi-threaded environments.
 
+## Class UML Diagram
+
+![class-uml-diagram.png](class-uml-diagram.png)
 ## TODO
 
 [ ] Add unit test cases
-[ ] Complete database appender implementation
+[x] Complete database appender implementation
 [ ] Add more appender types (Console, Network, etc.)
 [ ] Implement log message formatting with patterns
-[ ] Add log filtering capabilities
-[ ] Improve error handling and recovery mechanisms
-[ ] Add configuration via properties file
-[ ] Create documentation with examples
+[x] Add log filtering capabilities
+

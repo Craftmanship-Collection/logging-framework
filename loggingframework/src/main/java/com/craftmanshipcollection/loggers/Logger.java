@@ -20,7 +20,7 @@ public class Logger {
 
     }
 
-    public void setContext(LoggerContext context) {
+    public void setHandlers(LoggerContext context) {
         this.handlers = new ArrayList<>();
         handlers.add(new DebugHandler(context));
         handlers.add(new InfoHandler(context));
@@ -34,7 +34,7 @@ public class Logger {
 
         Logger logger = LoggerHolder.INSTANCE;
 
-        logger.setContext(loggerContext);
+        logger.setHandlers(loggerContext);
 
         return logger;
         
@@ -77,6 +77,6 @@ public class Logger {
     }
 
     private static class LoggerHolder {
-        private static Logger INSTANCE = new Logger();
+        private static final Logger INSTANCE = new Logger();
     }
 }

@@ -1,0 +1,121 @@
+@startuml
+interface LoggerAppender {
+     + {abstract} appendMessage(message: String)
+     + {abstract} start()
+     + {abstract} stop()
+}
+class DatabaseAppender implements LoggerAppender{
+     - logs : BlockingQueue<String>
+     - executorService : ExecutorService
+     - logDao : LogDao
+}
+
+class FileAppender implements LoggerAppender {
+     - logs: BlockingQueue<String>
+     - executorService : ExecutorService
+     - logDao : LogDao
+}
+
+class LoggerConfiguration {
+     - {static} logLevel : LogLevel
+     + {static} getLogLevel() : LogLevel
+     + {static} setLogLevel(logLevel : LogLevel)
+}
+
+class LoggerPrefix {
+     + {static} DEBUGLOGGERPREFIX : String
+     + {static} INFOLOGGERPREFIX : String
+     + {static} WARNLOGGERPREFIX : String
+     + {static} TRACELOGGERPREFIX : String
+     + {static} ERRORLOGGERPREFIX : String
+     + {static} FATALLOGGERPREFIX : String
+}
+
+class LoggerContext {
+
+    - appenders: Appender
+    + appendMessage(message: String)
+    + addAppender(appender: Appender)
+    + removeAppender(appender: Appender)
+    + stop()
+    + {static} getInstance() : LoggerContext
+
+}
+
+static class LoggerContextHolder {
+
+    - {static} final INSTANCE: LoggerConext
+
+}
+
+class LogDao {
+    + persist(message : String)
+}
+
+interface LoggerHandler {
+    + {abstract} log(message: String)
+}
+
+abstract class AbstractLoggerHandler implements LoggerHandler{
+
+    + {abstract} getLogLevel() : LogLevel
+    + {abstract} getLoggerPrefix() : String
+
+}
+
+class DebugHandler extends AbstractLoggerHandler {
+
+}
+
+class InfoHandler extends AbstractLoggerHandler {
+
+}
+
+class WarnHandler extends AbstractLoggerHandler {
+
+}
+
+class TraceHandler extends AbstractLoggerHandler {
+
+}
+
+class ErrorHandler extends AbstractLoggerHandler {
+
+}
+
+class FatalHandler extends AbstractLoggerHandler {
+
+}
+
+class Logger {
+     - handlers : LoggerHandler
+     + setHandlers(loggerContext: LoggerContext)
+     + {static} getInstance() : Logger
+     + debug(message: String)
+     + info(message: String)
+     + trace(message: String)
+     + warn(message: String)
+     + error(message: String)
+     + fatal(message: String)
+}
+
+static class LoggerHolder {
+    - {static} final INSTANCE : Logger
+}
+
+class Log {
+    - id: int
+    - timeStamp: LocalDateTime
+    - message: String
+}
+
+enum LogLevel {
+    DEBUG, INFO, TRACE, WARN, ERROR, FATAL
+}
+
+Logger +---- LoggerHolder
+Logger *--- LoggerContext
+LoggerContext +--- LoggerContextHolder
+LoggerContext "1"---"n" LoggerAppender
+LogDao ---* DatabaseAppender
+@enduml
