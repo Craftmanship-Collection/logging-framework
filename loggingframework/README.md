@@ -66,11 +66,11 @@ A simple, flexible, and extensible logging framework for Java applications with 
 ## Class UML Diagram
 
 ![class-uml-diagram.png](class-uml-diagram.png)
+
 ## TODO
 
-[ ] Add unit test cases
-[x] Complete database appender implementation
-[ ] Add more appender types (Console, Network, etc.)
-[ ] Implement log message formatting with patterns
-[x] Add log filtering capabilities
-
+* [ ] Add unit test cases
+* [x] Complete database appender implementation
+* [ ] Add more appender types (Console, Network, etc.)
+* [ ] Implement log message formatting with patterns
+* [x] Add log filtering capabilities
